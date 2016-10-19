@@ -37,6 +37,46 @@ int midIdx(int a, int b, int c) {
 		return 3;
 }
 
+int getPivotIdx(int *arr, int first, int last) {
+	int pIdx;
+	int mid = midIdx(arr[first], arr[(first + last) / 2], arr[last]);
+	if (mid == 1)
+		pIdx = first;
+	else if (mid == 2)
+		pIdx = (first + last) / 2;
+	else
+		pIdx = last;
+	return pIdx;
+}
+
+int partition(int *arr, int first, int last) {
+	//get pivotIdx
+	int pIdx = getPivotIdx(arr, first, last);
+	
+	//Put pivot at leftmost.
+	swap(&arr[first], &arr[pIdx]);
+	pIdx = first;
+
+	int i = first + 1;
+	int j = first;
+
+	//Divide groups smaller than pivotValue and bigger than pivotValue in arr
+	while (i <= last) {
+		if (arr[pIdx] >= arr[i]) {
+			swap(&arr[j + 1], &arr[i]);
+			i++;
+			j++;
+		}
+		else
+			i++;
+	}
+	//Put pivot at center
+	swap(&arr[pIdx], &arr[j]);
+	pIdx = j;
+
+	return pIdx;
+}
+
 void quickSort(int *arr, int first, int last) {
 	
 	//´ÙÂ®´Âµ¥ ¸®Äõ½Ãºê°¡ ¹«ÇÑ·çÇÁ ºüÁü..
@@ -46,38 +86,9 @@ void quickSort(int *arr, int first, int last) {
 	//	return 0;
 	if(first < last) {
 		int pivotIdx;
-		int mid = midIdx(arr[first], arr[(first + last) / 2], arr[last]);
-
-		if (mid == 1)
-			pivotIdx = first;
-		else if (mid == 2)
-			pivotIdx = (first + last) / 2;
-		else
-			pivotIdx = last;
-
-		swap(&arr[first], &arr[pivotIdx]);
-		pivotIdx = first;
-		//printf("pivot = %d, j = %d, i = %d\n", pivotIdx, j, i);
-
-		
-		int i = first + 1;
-		int j = first;
-
-		while (i <= last) {
-			if (arr[pivotIdx] >= arr[i]) {
-				swap(&arr[j + 1], &arr[i]);
-				i++;
-				j++;
-			}
-			else
-				i++;
-		}
-
-		swap(&arr[pivotIdx], &arr[j]);
-		pivotIdx = j;
-		//printf("pivot = %d, j = %d, i = %d\n", pivotIdx, j, i);
-		
-
+		//Divide
+		pivotIdx = partition(arr, first, last);
+		//Conquer
 		quickSort(arr, first, pivotIdx - 1);
 		quickSort(arr, pivotIdx + 1, last);
 	}
