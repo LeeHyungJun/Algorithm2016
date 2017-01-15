@@ -1,5 +1,5 @@
 /**
-    @file   : 2D_array.cpp
+    @file   : Day11_2D_array.cpp
     @date   : 01.15.2017
     @author : Hyungjun Lee
     @mail   : hjlee1765@gmail.com
