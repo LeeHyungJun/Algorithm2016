@@ -30,12 +30,12 @@ class Person{
 class Student : public Person{
 	private:
 		vector<int> testScores;
-        int len;
-        int sum;
-        int avg;
+        	int len;
+        	int sum;
+        	int avg;
 	public:
-        Student(string fName, string lName, int id, vector<int> s);
-        char calculate();      
+        	Student(string fName, string lName, int id, vector<int> s);
+        	char calculate();      
 };
 
 Student :: Student(string fName, string lName, int id, vector<int> s)
@@ -44,8 +44,7 @@ Student :: Student(string fName, string lName, int id, vector<int> s)
         this -> len = s.size();
         this -> sum = 0;
         this -> avg = 0;
-        }
-
+    }
 
 char Student :: calculate(){
     for(int i = 0; i < len; i++)
