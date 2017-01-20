@@ -20,7 +20,8 @@ public:
 		}
 		else {
 			Node* temp = head;
-			//temp를 주소값으로 받았으므로, temp안에있는 값들을 변경시키면 head에도 적용됨.
+			//temp를 주소값으로 받았으므로, temp안에있는 값들을 변경시키면 head에도 적용됨??
+			//
 			//move temp upto last node
 			while (temp->next != NULL) {
 				temp = temp->next;
