@@ -1,5 +1,5 @@
 /**
-*	file   : Day22_BST.cpp
+*	file   : Binary_Search_Tree.cpp
 *	date   : 01.23.2017
 *	author : Hyungjun Lee
 *	mail   : hjlee1765@gmail.com
@@ -8,6 +8,9 @@
 
 #include <iostream>
 #include <cstddef>
+#include <queue>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
@@ -54,6 +57,24 @@ public:
 		else
 			return right + 1;
 	}
+	
+	void levelOrder(Node* root){
+		queue<Node*> myQueue;
+		cout << root->data << " ";
+		myQueue.push(root);
+
+		while (!myQueue.empty()) {
+			if (myQueue.front()->left != NULL) {
+				cout << myQueue.front()->left->data << " ";
+				myQueue.push(myQueue.front()->left);
+			}
+			if (myQueue.front()->right != NULL) {
+				cout << myQueue.front()->right->data << " ";
+				myQueue.push(myQueue.front()->right);
+			}
+			myQueue.pop();
+		}
+	}		
 };
 
 int main() {
@@ -69,7 +90,9 @@ int main() {
 		root = myTree.insert(root, data);
 	}
 	int height = myTree.getHeight(root);
-	cout << height;
+	cout << "Height : " << height << endl;
+	cout << "Level Order : ";
+	myTree.levelOrder(root);
 
 	return 0;
 }
