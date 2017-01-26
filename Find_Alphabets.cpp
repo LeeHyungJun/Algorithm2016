@@ -29,3 +29,4 @@ int main(void) {
 	for (int j = 0; j < a.size(); j++)
 		cout << a[j] << " ";
 }
+ 
