@@ -12,84 +12,80 @@
 #include <vector>
 using namespace std;
 
-void add_edge(int v, int u, vector<vector<int>>& adj) {
+//  < 이문제 풀고나서 교훈 >
+// : 함수 인자로 2차원 벡터 계속 넘기면 메모리 초과난다.
+// class 멤버변수로 인자로 계속 넘어가는걸 막으면 개꿀ㅎㅎ;
+
+
+class Graph {
+private:
+	vector<vector<int>> adj;
+	vector<int> isVisitDFS;
+	int n, s;
+public:
+	Graph(int _n, int _s) {
+		this->n = _n;
+		this->s = _s;
+		for (int i = 0; i < _n + 1; i++) {
+			adj.push_back(vector<int>(_n + 1));
+			isVisitDFS.push_back(-1);
+		}
+
+	}
+	void add_edge(int v, int u) {
 		adj[v][u] = 1;
 		adj[u][v] = 1;
-}
-
-void dfs(int s, int n, vector<vector<int>> adj) {
-	stack<int> st;
-	vector<int> d(n + 1, -1);
-	cout << s << " ";
-	st.push(s);
-	d[s] = 0;
-	int pos = st.top();
-	while (!st.empty()) {
-		//find adj
+	}
+	void dfs(int start) {
+		cout << start << " ";
+		isVisitDFS[start] = 1;
 		for (int i = 1; i < n + 1; i++) {
-			//인접한 노드 중 방문안한 노드가 있다면
-			if (adj[pos][i] == 1 && d[i] == -1) {
-				d[i] = 0;
-				cout << i << " ";
-				st.push(i);
-				//i = 1;
-				pos = i;
-				break;
-			}
-			//방문안한 노드가 없다면 이전 노드로 돌아간다.
-			if (i == n && a == 0) {
-				st.pop();
-				pos = st.top();
+			if (adj[start][i] == 1 && isVisitDFS[i] == -1) {
+				dfs(i);
 			}
 		}
 	}
-}
-void bfs(int s, int n, vector<vector<int>> adj) {
-	queue<int> q;
-	vector<int> d(n + 1, -1);
-	int before;
+	void bfs() {
+		queue<int> q;
+		vector<int> d(n + 1, -1);
+		vector<int> before(n + 1, 0);
 
-	cout << s << " ";
-	q.push(s);
-	d[s] = 0;
-	//before = s;
-	while (!q.empty()) {
-		int cur = q.front();
-		q.pop();
-		for (int i = 1; i < n + 1; i++) {
-			if (adj[cur][i] == 1 && d[i] == -1) {
-				//d[i] = d[before] + 1;
-				//before = cur;
-				d[i] = 0;
-				cout << i << " ";
-				q.push(i);
+		cout << s << " ";
+		q.push(s);
+		// "d[i]" means distance from "start node(s)" to "certain node(i)"
+		d[s] = 0;
+		before[s] = NULL;
+		while (!q.empty()) {
+			int cur = q.front();
+			q.pop();
+			//find adjacent node.
+			for (int i = 1; i < n + 1; i++) {
+				//if there is unvisited adjacent node.
+				if (adj[cur][i] == 1 && d[i] == -1) {
+					d[i] = d[cur] + 1;
+					before[i] = cur;
+					cout << i << " ";
+					q.push(i);
+				}
 			}
-		}
-	}//end of While
-}//end of bfs
+		}//end of While
+	}//end of bfs
+
+};
+
 
 int main(void) {
-	int n,m,s;
+	int n, m, s;
 	int v, u;
 	cin >> n >> m >> s;
-
-	vector<vector<int>> adj;
-	for(int i=0; i<n+1; i++)
-		adj.push_back(vector<int>(n + 1));
-
+	Graph g(n,s);
+	
 	for (int i = 0; i < m; i++) {
 		cin >> v >> u;
-		add_edge(v, u, adj);
+		g.add_edge(v, u);
 	}
-	bfs(s, n, adj);
+	g.dfs(s);
 	cout << endl;
-	dfs(s,n,adj);
-
+	g.bfs();
 
 }
-/*
-for (int i = 0; i < n; i++) {
-	for (int j = 0; j<n; j++)
-		cout << adj[i][j] << " ";
-	cout << endl;
-}*/
