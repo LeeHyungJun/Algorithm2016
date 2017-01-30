@@ -6,7 +6,6 @@
 *	refer  : Hacker Rank
 **/
 
-
 #include <cmath>
 #include <cstdio>
 #include <stdio.h>
