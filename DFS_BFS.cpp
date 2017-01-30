@@ -32,7 +32,7 @@ public:
 			isVisitDFS.push_back(-1);
 		}
 
-	}
+	}//.,
 	void add_edge(int v, int u) {
 		adj[v][u] = 1;
 		adj[u][v] = 1;
