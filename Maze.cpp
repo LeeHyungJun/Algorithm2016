@@ -5,7 +5,6 @@
 *	mail   : hjlee1765@gmail.com
 *	refer  : BackJoon_2178
 **/
-
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -17,35 +16,54 @@ class Sol {
 private:
 	vector<vector<int>> maze;
 	queue<pair<int,int>> q;
-	vector<int> d;
-	vector<int> before;
+	vector<vector<int>> d;
+	//vector<pair<int,int>> before;
 	int n;
 	int m;
 	int nodeNum;
 	int tmp;
+	int x, y;
 public:
 	Sol(vector<vector<int>> _maze, int _n, int _m) {
 		this->maze = _maze;
 		this->n = _n;
 		this->m = _m;
+		for (int i = 0; i < n+2; i++) {
+			d.push_back(vector<int>(m + 2,-1));
+			//before.push_back(pair<int,int>(0,0));
+		}
 	}
-	void bfs() {
+	int bfs() {
+		//cout << "1,1" << endl;
+		d[1][1] = 0;
+		//before.push_back(pair<int, int>(a, b));
 		q.push(pair<int,int>(1,1));
 		while (!q.empty()) {
-			int x = q.front().first;
-			int y = q.front().second;
+			x = q.front().first;
+			y = q.front().second;
 			q.pop();
 
-			if ((maze[x - 1][y] == 1) && (d[(x-1)*m+y] == -1)) {
-				q.push(pair<int, int>(x - 1, y));
-			}
+			check(x - 1 , y		);
+			check(x		, y + 1	);
+			check(x + 1	, y		);
+			check(x		, y-1	);
+		}
+		return d[n][m];
+	}
 
+	void check(int a, int b) {
+		if ((maze[a][b] == 1) && (d[a][b] == -1)) {
+			//cout << a << "," << b << endl;
+			d[a][b] = d[x][y] + 1;
+			//before.push_back(pair<int, int>(a, b));
+			q.push(pair<int, int>(a, b));
 		}
 	}
 	void printMaze() {
 		for (int i = 0; i < n+2; i++) {
 			for (int j = 0; j < m+2; j++) {
-				cout << maze[i][j] << " ";
+				//cout << maze[i][j] << " ";
+				cout << d[i][j] << " ";
 			}cout << endl;
 		}
 
@@ -69,7 +87,7 @@ int main(void) {
 	}
 
 	Sol a(maze,n,m);
-	a.printMaze();
-	//a.bfs();
+	//a.printMaze();
+	cout << a.bfs()+1 << endl;
 
 }
