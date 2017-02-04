@@ -2,47 +2,49 @@
 #include <vector>
 using namespace std;
 
-class Sol {
-private:
-	vector<int> primeNumArr;
-public:
-	Sol(int n) {
-		vector<int> a((n/2)+1,0);
-		primeNumArr = a;
-	}
-	void getArrThePrimeNum(int n) {
-		int tmp = n / 2;
-		int cnt=0;
-		for (long i = 3; i <= tmp; i++) {
-			for (long j = 3; j <= tmp; j++) {
-				if (tmp%j != 0)
-					cnt++;
-				if (cnt != 0)
-					break;
-				if (j == tmp)
-					primeNumArr.push_back(j);
+
+void getArrThePrimeNum(int n, vector<bool>& v) {
+	for (int i = 2; i*i < n + 1; i++) {
+		if (v[i] == true) {
+			for (int j = i*i; j < n + 1; j = j + i) {
+				v[j] = false;
 			}
 		}
 	}
-	void printPrimeNumArr(int n) {
-		int tmp = n / 2;
-		for (long i = 0; i <= tmp; i++) {
-			cout << primeNumArr[i] << " ";
-		}
-		cout << endl;
+}
+void printPrimeNumArr(int n, vector<bool>& v) {
+	for (int i = 0; i < n+1; i++) {
+		if (v[i] == true)
+			printf("%d ", i);
 	}
-};
+	cout << endl;
+}
+
+void isGoldBach(int n, vector<bool>& v) {
+	for (int i = 3; i < v.size(); i++) {
+		if()
+		if (v[i] + v[i + 1] > n)
+			continue;
+		for (int j = i + 1; j < v.size(); j++) {
+			if (v[i] + v[j] == n) {
+				cout << n << " = " << v[i] << " + " << v[j] << endl;
+				return;
+			}
+		}
+	}
+	cout << "no";
+}
 
 int main(void) {
 	int n;
 	while (1) {
 		cin >> n;
-		Sol a(n);
 		if (n == 0)
 			break;
-		else {
-			a.getArrThePrimeNum(n);
-			a.printPrimeNumArr(n);
-		}
+		vector<bool> v(n+1,true);
+		getArrThePrimeNum(n,v);
+		printPrimeNumArr(n,v);
+		isGoldBach(n,v);
+		v.clear();
 	}
  }
