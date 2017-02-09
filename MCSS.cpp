@@ -72,4 +72,4 @@ int main(void) {
 		arr.push_back(tmp);
 	}
 	cout << mcss(arr,0,arr.size()-1);
-}
+} 
