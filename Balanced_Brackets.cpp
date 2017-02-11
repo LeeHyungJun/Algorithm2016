@@ -12,7 +12,7 @@
 #include <string>
 
 using namespace std;
-
+ 
 string isVPS(string ps) {
 	int len = ps.length();
 	vector<int> st;
