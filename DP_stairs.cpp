@@ -1,64 +1,52 @@
+/**
+*	file   : DP_stairs.cpp
+*	date   : 02.15 ~ 02.16.2017
+*	author : Hyungjun Lee
+*	mail   : hjlee1765@gmail.com
+*	refer  : BackJoon_2579
+**
+
 #include <iostream>
-#include <stdio.h>
-#include <algorithm>
 
 using namespace std;
 #define MAX 301
 
-int sol[MAX];
-int m[MAX];
+int x[MAX];
+int s[MAX][3];
 
-void _print() {
-	for (int i = 0; i < MAX; i++)
-		cout << m[i] << " ";
+int getMax(int a, int b) {
+	if (a > b)
+		return a;
+	else
+		return b;
 }
+// s[i] = max(s[i-1],s[i-2])+x[i]
+//위의 식은 계단이 연속3번 올 수 있기 때문에 사용불가.
+//해답에 영향을 미치는 상수 c가 있다.
+//따라서 2차원 배열로 조건을 추가 해 준다.
 
-void _init() {
-	for (int i = 0; i < MAX; i++) {
-		sol[i] = -10001;
-		m[i] = -1;
-	}
-}
+//s[i][c] = i번째 계단, 이전 단계에서 c계단 올라옴.
+
+//Case1   -> s[i][1] = s[i - 1][2] + x[i];
+//           이전단계에서 1계단 올라온 것은 무조건 그 전에 2계단 올라왔던 것 임.
+//Case2   -> s[i][2] = getMax(s[i - 2][1], s[i - 2][2]) + x[i];
+//           이전단계에서 2계단 올라온 것은 그 전 단계에서 1계단 혹은 2계단 올라온 것 임.
 
 int stairs(int n) {
-	int conti_cnt = 0;
-	for (int i = 0; i <= n; i++) {
-		if (i == 0)
-			sol[0] = 0;
-		else {
-			int bf = sol[i - 1];
-			int bbf = sol[i - 2];
-
-			if (conti_cnt == 2) {
-				sol[i] = bbf + m[i];
-				conti_cnt = 1;
-			}
-			else if (bf >= bbf) {
-				sol[i] = bf + m[i];
-				conti_cnt++;
-			}
-			else {
-				sol[i] = bbf + m[i];
-				conti_cnt = 1;
-			}
-		}
+	s[1][1] = x[1];
+	s[1][2] = x[1];
+	for (int i = 2; i <= n; i++) {
+		s[i][1] = s[i - 1][2] + x[i];
+		s[i][2] = getMax(s[i - 2][1], s[i - 2][2]) + x[i];
 	}
-	return sol[4];
+	return getMax(s[n][1], s[n][2]);
 }
 
-
-int main() {
+int main(void) {
 	int n;
-	int _n;
 	cin >> n;
-	_n = n;
-	int cnt = 0;
-	_init();
-	m[0] = 0;
-	while (n-->0) {
-		scanf("%d", &m[++cnt]);
+	for(int i=1; i<=n; i++){
+		cin >> x[i];
 	}
-	cout << stairs(_n);
-	//_print();
-	
+	cout << stairs(n);
 }
