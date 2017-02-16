@@ -4,7 +4,7 @@
 *	author : Hyungjun Lee
 *	mail   : hjlee1765@gmail.com
 *	refer  : BackJoon_2579
-**
+**/
 
 #include <iostream>
 
