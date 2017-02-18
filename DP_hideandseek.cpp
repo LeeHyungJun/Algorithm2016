@@ -1,5 +1,5 @@
 /**
-*	file   : DP_hideonbush.cpp
+*	file   : DP_hideandseek.cpp
 *	date   : 02.18.2017
 *	author : Hyungjun Lee
 *	mail   : hjlee1765@gmail.com
