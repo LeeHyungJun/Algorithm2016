@@ -13,10 +13,4 @@ int main(void) {
 	v2.push_back(vector<int>(3));
 
 	// v1과 v2는 동일하다.
-	for (int i = 0; i<2; i++) {
-		for (int j = 0; j<3; j++)
-			cout << v1[i][j] << " ";
-		  //cout << v2[i][j] << " "l
-		cout << endl;
-	}
-}
+	for (int i = 0; i
