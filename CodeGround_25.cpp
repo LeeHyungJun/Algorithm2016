@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
 	int T;
 	int test_case;
-
+ 
 	scanf("%d", &T);	// Codeground 시스템에서는 C++에서도 scanf 함수 사용을 권장하며, cin을 사용하셔도 됩니다.
 	for (test_case = 1; test_case <= T; test_case++) {
 		// 이 부분에서 알고리즘 프로그램을 작성하십시오. 기본 제공된 코드를 수정 또는 삭제하고 본인이 코드를 사용하셔도 됩니다.
