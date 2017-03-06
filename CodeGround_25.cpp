@@ -8,6 +8,7 @@ using namespace std;
 unsigned long long min_;
 unsigned long long max_;
 
+//트리 순회하는 것처럼.
 void search(unsigned long long x, int k) {
 	if (k == 0) {
 		if (x > max_)
@@ -26,7 +27,7 @@ void search(unsigned long long x, int k) {
 }
 
 int main(int argc, char** argv) {
-	//freopen("input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 	setbuf(stdout, NULL);
 
 	int T;
